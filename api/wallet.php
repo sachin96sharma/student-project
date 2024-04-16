@@ -46,3 +46,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SERVER['CONTENT_TYPE']) &&
     echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
 }
 ?>
+<pre>sachin</pre>

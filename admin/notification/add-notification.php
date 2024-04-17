@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
     // You might want to implement a function like getCategory_byID() for retrieving game details by ID
     $gameDetails = getNotificationDetailsByID($id);
     $st = $gameDetails['status'];
-    $str =$gameDetails['type'];
+    $str = $gameDetails['type'];
 }
 
 // Check permissions, redirect if necessary
@@ -56,30 +56,38 @@ if ($per['categories']['add'] == 0) {
                     <!-- <div align="center" style="color:#FF0000">
                         ?php echo $_SESSION['msg']; ?>
                     </div> -->
-                    <form id="form" name="form" action="<?php echo SITEPATH; ?>/admin/action/notifications.php?action=save" method="post" enctype="multipart/form-data" >
+                    <form id="form" name="form" action="<?php echo SITEPATH; ?>/admin/action/notifications.php?action=save" method="post" enctype="multipart/form-data">
                         <input id="data_id" name="data_id" type="hidden" value="<?php echo isset($id) ? $id : ''; ?>" />
                         <div class="box-body">
                             <div class="row">
-                                
+
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="name">Type</label>
-                                        <select name="type" id="type" class="form-control">
+                                        <select id="type" name="type" class="form-control">
+                                            <?php
+                                            foreach ($config['type2'] as $key => $value) {
+                                                $selected = ($key ==  $gameDetails['type']) ? ' selected="selected"' : '';
+                                                echo '<option ' . $selected . ' value="' . $key . '">' . $value . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                        <!-- <select name="type" id="type" class="form-control">
                                         <option value="Offer" <?php if ($str == 'Offer ') echo 'selected'; ?>>Offer </option>
                                         <option value="Winning" <?php if ($str == 'Winning ') echo 'selected'; ?>>Winning </option>
                                         <option value="Games" <?php if ($str == 'Games ') echo 'selected'; ?>>Games </option>
-                                    </select>
+                                    </select> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                  <div class="form-group">
-                    <label>Description</label>
-                    <input class="form-control" required name="description" placeholder=""  value="<?php echo isset($gameDetails['description']) ? $gameDetails['description'] : ''; ?>" required type="text" onFocus="txtFocus(this);" onfocusout="txtFocusOut(this);">
-                  </div>
-                </div>
-                         
-                        
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <input class="form-control" required name="description" placeholder="" value="<?php echo isset($gameDetails['description']) ? $gameDetails['description'] : ''; ?>" required type="text" onFocus="txtFocus(this);" onfocusout="txtFocusOut(this);">
+                                </div>
+                            </div>
+
+
 
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -112,7 +120,7 @@ if ($per['categories']['add'] == 0) {
 
 
 
-    
+
 
 
 

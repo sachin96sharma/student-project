@@ -75,7 +75,8 @@ foreach ($games as $game) {
 <tr>
   <td><?php echo $serialNumber++ ;?></td>
   
-  <td><?php echo htmlspecialchars($game['type']);?></td>
+  <td><?php echo htmlspecialchars($config['type2'][$game['type']]); ?></td>
+
  
   <td><?php echo htmlspecialchars($game['description']);?></td>
   <td><?php echo htmlspecialchars($game['created_at']);?></td>

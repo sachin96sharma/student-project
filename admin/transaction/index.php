@@ -55,7 +55,7 @@ foreach ($rows_list as $rows) {
               <td><?php echo $rows['ref_ID']; ?></td>
               <td><?php echo $rows['wallet']; ?><br><?php echo $rows['order_id']; ?></td>
               <td><?php echo $config['paymentstatus'][$rows['status']]; ?></td>
-              <td><?php echo $rows['date_time']; ?></td>
+              <td><?php echo $rows['created_at']; ?></td>
               <!--<td><?php echo $rows['spinst']; ?></td>--> 
               <!-- <td><a href="https://www.google.com/maps/place/<?php echo $rows['lats']; ?>,<?php echo $rows['longs']; ?>" target="_blank">Maps</a></td>
 				-->  

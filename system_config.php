@@ -7,7 +7,7 @@ date_default_timezone_set('asia/calcutta');
 // define("SITEPATH", "https://www.studentdatabasekart.in/");
 
 define("SITEPATH", "https://new.sumiran.co/");
-define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/student/");
+define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/student");
 // define("SITEPATH", "http://localhost/student/");
 // define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/student/");
 header('Access-Control-Allow-Origin: *');
@@ -90,7 +90,7 @@ function pr($data)
     echo "<pre>{$formatted_data}</pre>";
     // die;
 }
-
+// pr(ABSPATH . "/config_setting/database.php");die;
 include(ABSPATH . "/config_setting/database.php");
 include(ABSPATH . "/config_setting/common_function.php");;
 include(ABSPATH . "/modules/cms.php");

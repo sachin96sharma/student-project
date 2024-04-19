@@ -1,24 +1,30 @@
 <?php
 include("../system_config.php");
-// pr($_POST);die;
 
 // Check if the request method is POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['key'] == 'qwertyupasdfghjklzxcvbnm' && isset($_POST['user_email'], $_POST['user_pass'], $_POST['user_type'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key'], $_POST['user_email'], $_POST['user_pass'], $_POST['user_type'])) {
+
+    // Verify the authorization key
+    $key = $_POST['key'];
+   // pr($_POST);die;
+  // echo $key; die;
+    if ($key != 'qwertyupasdfghjklzxcvbnm') {
+       // echo 'jkj';die;
+        http_response_code(401); // Unauthorized
+        header('Content-Type: application/json');
+        echo json_encode(['status' => false, 'error' => 'Unauthorized']);
+        exit;
+    }
 
     $email = sanitizeInput($_POST['user_email']);
     $password = sanitizeInput($_POST['user_pass']);
+    $password =  encryptIt($password);
     $user_type = sanitizeInput($_POST['user_type']);
 
     if ($user_type == 1) {
-        $sql = "SELECT * FROM " . tbl_user . " WHERE user_email = ?";
-    }
-
-    // elseif ($user_type == 'D' || $user_type == 'd') {
-    //     $sql = "SELECT dealer_id, dealer_name, dealer_email, password, dealer_status FROM dealer WHERE dealer_email = ?";
-    // } 
-
-    else {
-        http_response_code(400);
+        $sql = "SELECT * FROM " . tbl_customer . " WHERE user_email = ?";
+    } else {
+        http_response_code(400); // Bad Request
         header('Content-Type: application/json');
         echo json_encode(['status' => false, 'error' => 'Invalid user type']);
         exit;
@@ -31,13 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['key'] == 'qwertyupasdfghjkl
     echo json_encode($response);
     exit;
 } else {
-    http_response_code(400);
+    http_response_code(400); // Bad Request
     header('Content-Type: application/json');
     echo json_encode(['status' => false, 'error' => 'Invalid request']);
     exit;
 }
-
-
 
 function sanitizeInput($data)
 {
@@ -56,16 +60,11 @@ function handleLogin($sql, $email, $password, $user_type)
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
 
-        if ($user_type == 1) {
-            if (encryptIt($password) == $row['user_pass']) {
-                return handleCustomerLogin($row);
-            }
+        // Verify password
+        // echo encryptIt($password);die;
+        if (encryptIt($password) == $row['user_pass']) {
+            return handleCustomerLogin($row);
         }
-        // elseif ($user_type == 'D' || $user_type == 'd') {
-        //     if (encryptIt($password) == $row['password']) {
-        //         return handleDealerLogin($row);
-        //     }
-        // }
     }
 
     return ['status' => false, 'error' => 'Authorization failed'];
@@ -85,22 +84,4 @@ function handleCustomerLogin($row)
         return ['status' => false, 'error' => 'Account under review'];
     }
 }
-
-// Function to handle dealer login
-// function handleDealerLogin($row)
-// {
-//     if ($row['dealer_status'] == 0) {
-//         return [
-//             'status' => true,
-//             'dealerId' => $row['dealer_id'],
-//             'dealerName' => $row['dealer_name'],
-//             'type' => 5,
-//         ];
-//     } else {
-//         return [
-//             'status' => false,
-//             'error' => 'You are already registered. Our team will connect with you shortly.',
-//         ];
-//     }
-// }
-
+?>

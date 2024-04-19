@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SERVER['CONTENT_TYPE']) &&
     $jsonData = json_decode(file_get_contents('php://input'), true);
 
     // Check if required data fields are present
-    if (!isset($jsonData['game_id'], $jsonData['user_id'], $jsonData['bet_amount'], $jsonData['game_biding'])) {
+    if (!isset($jsonData['game_id'], $jsonData['user_id'], $jsonData['bet_amount'])) {
         http_response_code(400);
         echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
         exit;
@@ -19,10 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SERVER['CONTENT_TYPE']) &&
     $game_id = mysqli_real_escape_string($link, $jsonData['game_id']);
     $user_id = mysqli_real_escape_string($link, $jsonData['user_id']);
     $bet_amount = mysqli_real_escape_string($link, $jsonData['bet_amount']);
-    $game_biding = mysqli_real_escape_string($link, $jsonData['game_biding']);
+    // $game_biding = mysqli_real_escape_string($link, $jsonData['game_biding']);
 
     // Prepare the SQL query
-    $sql = "INSERT INTO game_report (game_id, user_id, bet_amount, game_biding) VALUES ('$game_id', '$user_id', '$bet_amount', '$game_biding')";
+    $sql = "INSERT INTO game_report (game_id, user_id, bet_amount) VALUES ('$game_id', '$user_id', '$bet_amount')";
 
     // Execute the SQL query
     $result = mysqli_query($link, $sql);

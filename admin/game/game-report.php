@@ -67,7 +67,7 @@ if ($r['user_type'] == "1") {
                                             <td><?php echo htmlspecialchars($res['name']); ?></td>
                                             <td><?php echo htmlspecialchars($user['first_name']); ?></td>
                                             <td><?php echo htmlspecialchars($game['bet_amount']); ?></td>
-                                            <td><?php echo htmlspecialchars($game['game_biding']); ?></td>
+                                            <td><?php echo htmlspecialchars($game['created_at']); ?></td>
                                         </tr>
                                     <?php
                                     }

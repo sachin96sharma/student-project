@@ -6,32 +6,6 @@ function sanitizeInput($data)
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
-// fileupload funtion 
-// function handleFileUpload($fileKey, $columnName, $customerId)
-// {
-//     global $link, $config;
-
-//     if (!empty($_FILES[$fileKey]["name"]) && $_FILES[$fileKey]["error"] == 0) {
-//         $updCustomer = getcustomer_byID($customerId);
-
-//         $customerNameWithoutSpacesLowercase = strtolower(str_replace(' ', '', $updCustomer['cust_first_name']));
-//         $phone = empty($updCustomer['cust_phone']) ? 'NoPhone' : $updCustomer['cust_phone'];
-//         $imageName = $customerNameWithoutSpacesLowercase . '_' . $phone;
-
-//         $file_name = $_FILES[$fileKey]["name"];
-//         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-//         $customer_img_name = $imageName . '_' . time() . '_' . $fileKey . "." . $file_ext;
-//         $path = '../' . $config['Images'] . $customer_img_name;
-
-//         if (move_uploaded_file($_FILES[$fileKey]["tmp_name"], $path)) {
-//             unlink('../' . $config['Images'] . $updCustomer[$columnName]);
-//             $update_sql = "UPDATE customer SET $columnName = ? WHERE cust_id = ?";
-//             $update_stmt = mysqli_prepare($link, $update_sql);
-//             mysqli_stmt_bind_param($update_stmt, 'si', $customer_img_name, $customerId);
-//             mysqli_stmt_execute($update_stmt);
-//         }
-//     }
-// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
 
@@ -90,11 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
 
     // Prepare and execute SQL query
     if ($userId) {
-        $sql = "UPDATE reg_user SET first_name=?, user_pass=?, user_phone=?,  WHERE user_id=?";
+        $sql = "UPDATE customer SET first_name=?, user_pass=?, user_phone=?,  WHERE user_id=?";
         $stmt = mysqli_prepare($link, $sql);
         mysqli_stmt_bind_param($stmt, 'ssssssssi', $first_name, $hashed_password, $phone,  $userId);
     } else {
-        $sql = "INSERT INTO reg_user (first_name,user_email, user_pass,user_phone, ) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO customer (first_name,user_email, user_pass,user_phone, ) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $sql);
         mysqli_stmt_bind_param($stmt, 'ssssiiiss', $first_name, $email, $hashed_password, $phone );
     }

@@ -6,8 +6,10 @@ date_default_timezone_set('asia/calcutta');
 // define("ABSPATH", $_SERVER['DOCUMENT_ROOT']."https://www.studentdatabasekart.in/");
 // define("SITEPATH", "https://www.studentdatabasekart.in/");
 
-define("SITEPATH", "http://localhost/student/");
+define("SITEPATH", "https://new.sumiran.co/");
 define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/student/");
+// define("SITEPATH", "http://localhost/student/");
+// define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/student/");
 header('Access-Control-Allow-Origin: *');
 error_reporting(1);
 define("ADMIN_FOLDER", "admin");
@@ -94,7 +96,6 @@ include(ABSPATH . "/config_setting/common_function.php");;
 include(ABSPATH . "/modules/cms.php");
 include(ABSPATH . "/modules/login.php");
 //include(ABSPATH."/config_setting/data.php");
-
 
 
 $config['category_thumb'] = "upload/thumb/";

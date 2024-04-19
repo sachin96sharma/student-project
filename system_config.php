@@ -6,10 +6,10 @@ date_default_timezone_set('asia/calcutta');
 // define("ABSPATH", $_SERVER['DOCUMENT_ROOT']."https://www.studentdatabasekart.in/");
 // define("SITEPATH", "https://www.studentdatabasekart.in/");
 
-// define("SITEPATH", "https://new.sumiran.co/");
-// define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/");
-define("SITEPATH", "http://localhost/student/");
-define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/student");
+define("SITEPATH", "https://new.sumiran.co/");
+define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/");
+// define("SITEPATH", "http://localhost/student/");
+// define("ABSPATH", $_SERVER['DOCUMENT_ROOT'] . "/student");
 header('Access-Control-Allow-Origin: *');
 error_reporting(1);
 define("ADMIN_FOLDER", "admin");

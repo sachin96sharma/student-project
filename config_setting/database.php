@@ -2,15 +2,15 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 
-// $dbhost = "localhost";
-// $dbuser = "root"; // Assuming you're using root as the username
-// $dbpass = ""; // Assuming you're not setting a password for the root user
-// $db = "abc";
-
 $dbhost = "localhost";
-$dbuser = "student_db"; // Assuming you're using root as the username
-$dbpass = "K21d1q#9y"; // Assuming you're not setting a password for the root user
-$db = "student_db";
+$dbuser = "root"; // Assuming you're using root as the username
+$dbpass = ""; // Assuming you're not setting a password for the root user
+$db = "abc";
+
+// $dbhost = "localhost";
+// $dbuser = "student_db"; // Assuming you're using root as the username
+// $dbpass = "K21d1q#9y"; // Assuming you're not setting a password for the root user
+// $db = "student_db";
 
 $link = mysqli_connect($dbhost, $dbuser, $dbpass, $db);
 

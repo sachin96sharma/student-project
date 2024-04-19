@@ -112,7 +112,7 @@
       <li class="treeview"> <a> <i class="fa  fa-rss-square nav_icon"></i> <span> Customer Management</span> <i class="fa fa-angle-left pull-right"></i> </a>
         <ul class="treeview-menu">
           <li><a href="<?php echo SITEPATH; ?>admin/customer/add-new-customer.php"><i class="fa fa-caret-right"></i> Add New</a></li>
-          <li><a href="<?php echo SITEPATH; ?>admin/Customer/"><i class="fa fa-caret-right"></i> View All</a></li>
+          <li><a href="<?php echo SITEPATH; ?>admin/customer/"><i class="fa fa-caret-right"></i> View All</a></li>
         </ul>
       </li>
 

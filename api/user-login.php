@@ -18,10 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key'], $_POST['user_e
 
     $email = sanitizeInput($_POST['user_email']);
     $password = sanitizeInput($_POST['user_pass']);
-    $password =  encryptIt($password);
+    // $password =  encryptIt($password);
     $user_type = sanitizeInput($_POST['user_type']);
 
-    if ($user_type == 1) {
+    if ($user_type == 0) {
         $sql = "SELECT * FROM " . tbl_customer . " WHERE user_email = ?";
     } else {
         http_response_code(400); // Bad Request
@@ -59,7 +59,8 @@ function handleLogin($sql, $email, $password, $user_type)
 
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-
+        // pr($password);
+        // pr($row);die;
         // Verify password
         // echo encryptIt($password);die;
         if (encryptIt($password) == $row['user_pass']) {
@@ -73,7 +74,7 @@ function handleLogin($sql, $email, $password, $user_type)
 // Function to handle customer login
 function handleCustomerLogin($row)
 {
-    if ($row['user_pass'] == 0) {
+    if ($row['user_status'] == 0) {
         return [
             'status' => true,
             'user_id' => $row['user_id'],

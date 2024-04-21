@@ -9,21 +9,23 @@ if ($per['user']['view'] == 0) { ?>
 <?php } ?>
 </head>
 <style>
-    .button-wrapper {
-        text-align: right;
-    }
-    .button-wrapper button {
-        background-color: blue;
-        width: 150px;
-        height: 40px;
-        margin-bottom: 10px;
-        color: white;
-        border: none;
-        
-                cursor: pointer;
+  .button-wrapper {
+    text-align: right;
+  }
 
-    }
+  .button-wrapper button {
+    background-color: blue;
+    width: 150px;
+    height: 40px;
+    margin-bottom: 10px;
+    color: white;
+    border: none;
+
+    cursor: pointer;
+
+  }
 </style>
+
 <body class="hold-transition skin-blue sidebar-mini fixed">
   <div class="wrapper">
     <?php include_once("../common/left_menu.php"); ?>
@@ -40,11 +42,11 @@ if ($per['user']['view'] == 0) { ?>
       <section class="content">
         <h1 align="center" style="color: #337ab7;"><?php echo $_SESSION['message'];
                                                     unset($_SESSION['message']); ?></h1>
-                                                      <div class="button-wrapper ">
-    <button onclick="location.href='<?php echo SITEPATH;?>admin/Customer/add-new-customer.php'">
-        Add Customer
-    </button>
-</div>
+        <div class="button-wrapper ">
+          <button onclick="location.href='<?php echo SITEPATH; ?>admin/Customer/add-new-customer.php'">
+            Add Customer
+          </button>
+        </div>
         <div class="table-responsive" style="overflow-x: auto;">
           <table id="exportable" align="center" class="table table-bordered table-condensed table-hover">
             <thead>
@@ -105,7 +107,7 @@ if ($per['user']['view'] == 0) { ?>
 
                   <?php if ($r['user_type'] == "1") { ?>
                     <td id="font12" style="width:10%"><?php if ($per['user']['edit'] == 1) { ?>
-                        <a href="<?php echo SITEPATH; ?>/admin/action/customer.php?action=status&id=<?php echo  urlencode(encryptIt($rows['user_id'])); ?>" <?php if ($rows['user_status'] == "0") { ?> onMouseOver="showbox('active<?php echo $i; ?>')" onMouseOut="hidebox('active<?php echo $i; ?>')"><i class="fa fa-angle-double-up"></i>
+                        <a href="<?php echo SITEPATH; ?>admin/action/customer.php?action=status&id=<?php echo  urlencode(encryptIt($rows['user_id'])); ?>" <?php if ($rows['user_status'] == "0") { ?> onMouseOver="showbox('active<?php echo $i; ?>')" onMouseOut="hidebox('active<?php echo $i; ?>')"><i class="fa fa-angle-double-up"></i>
                         <?php } else { ?>
                           onMouseOver="showbox('inactive<?php echo $i; ?>')" onMouseOut="hidebox('inactive<?php echo $i; ?>')"> <i class="fa fa-angle-double-down"></i>
                         <?php } ?>
@@ -122,7 +124,7 @@ if ($per['user']['view'] == 0) { ?>
                 <div id="Setting<?php echo $i; ?>" class="hide1">
                   <p>Setting</p>
                 </div><?php } ?>-->
-                        &nbsp;&nbsp; <a href="<?php echo SITEPATH; ?>/admin/Customer/add-new-customer.php?id=<?php echo  urlencode(encryptIt($rows['user_id'])); ?>" onMouseOver="showbox('Edit<?php echo $i; ?>')" onMouseOut="hidebox('Edit<?php echo $i; ?>')"> <i class="fa fa-pencil"></i></a>
+                        &nbsp;&nbsp; <a href="<?php echo SITEPATH; ?>admin/Customer/add_new_customer.php?id=<?php echo  urlencode(encryptIt($rows['user_id'])); ?>" onMouseOver="showbox('Edit<?php echo $i; ?>')" onMouseOut="hidebox('Edit<?php echo $i; ?>')"> <i class="fa fa-pencil"></i></a>
                         <div id="Edit<?php echo $i; ?>" class="hide1">
                           <p>Edit</p>
                         </div>

@@ -37,6 +37,23 @@ function getwallet_list()
     $array = FetchAll($sql);
     return $array;
 }
+function getwallet_byID($Id)
+{
+    $sql = "select * from " . tbl_wallet . " where id='" . $Id . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
+}
+function getWalletUserbyID($id_or_user_id = null)
+{    
+    if (is_numeric($id_or_user_id)) {
+        $sql = "SELECT * FROM " . tbl_wallet . " WHERE id = '" . $id_or_user_id . "' LIMIT 1";
+    } else {
+        $sql = "SELECT * FROM " . tbl_wallet . " WHERE user_id = '" . $id_or_user_id . "' LIMIT 1";
+    }
+    $array = FetchRow($sql);
+    return $array;
+}
+
 function getwallet_history_byID($id)
 {
     $sql = "select * from " . tbl_wallet_history . "   where id = '" . $id . "'";
@@ -271,6 +288,24 @@ function getcustomer_byID($id)
     $array = FetchRow($sql);
     return $array;
 }
+function gettransaction_byID($Id)
+{
+    $sql = "select * from " . tbl_wallet_history . " where id='" . $Id . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
+}
+
+function getUserByEmailOrId($id_or_email = null)
+{
+    if (is_numeric($id_or_email)) {
+        $sql = "select * from " . tbl_customer . " where user_id = '" . $id_or_email . "' limit 0,1 ";
+    } else {
+        $sql = "select * from " . tbl_customer . " where user_email = '" . $id_or_email . "' limit 0,1 ";
+    }
+    $array = FetchRow($sql);
+    return $array;
+}
+
 function getGameDetailsByID($id)
 {
     $sql = "select * from " . tbl_games . " where id='" . $id . "' limit 0,1 ";
@@ -403,13 +438,24 @@ function getCategory_byList_byuser($id)
 }
 
 
-function getCategory_byID($id)
+function getCategory_byID($Id)
 {
-    $sql = "select * from " . tbl_categories . " where cat_id='" . $id . "' limit 0,1 ";
+    
+    $sql = "select * from " . tbl_categories . " where cat_id='" . $Id . "' limit 0,1 ";
     $array = FetchRow($sql);
     return $array;
 }
 
+function getUserByCatOrId($id_or_cat_name = null)
+{
+    if (is_numeric($id_or_cat_name)) {
+        $sql = "select * from " . tbl_categories . " where cat_id = '" . $id_or_cat_name . "' limit 0,1 ";
+    } else {
+        $sql = "select * from " . tbl_categories . " where cat_name = '" . $id_or_cat_name . "' limit 0,1 ";
+    }
+    $array = FetchRow($sql);
+    return $array;
+}
 function getCategoryName_byID($id)
 {
     $sql = "select cat_name from " . tbl_categories . " where cat_id='" . $id . "' limit 0,1 ";
@@ -511,6 +557,12 @@ function getReport_list($gameId = null)
     }
     $games = FetchAll($sql);
     return $games;
+}
+function getReportbyId($Id)
+{
+    $sql = "select * from " . tbl_game_report . " where id='" . $Id . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
 }
 
 function getNotification_list()

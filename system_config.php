@@ -115,8 +115,8 @@ $config['banner_type'] = array("0" => "Top Silder", "1" => "Bottom Silder");
 $config['typeofpurchase'] = array("0" => "fund_add", "1" => "order");
 $config['paper'] = array("1" => "Yes", "2" => "No");
 $config['user_type'] = array("0" => "Admin", "1" => "User", "2" => "Supplier", "3" => "Salesman", "4" => "Customer");
-$config['type'] = array("1" => "Payment", "2" => "Receipt", "3" => "Car Booking", "4" => "Purchase", "5" => "Sales Account", "6" => "Cost of Sales", "7" => "Expense");
-$config['type1'] = array("1" => "Payment", "2" => "Receipt");
+// $config['type'] = array("1" => "Payment", "2" => "Receipt", "3" => "Car Booking", "4" => "Purchase", "5" => "Sales Account", "6" => "Cost of Sales", "7" => "Expense");
+// $config['type1'] = array("1" => "Payment", "2" => "Receipt");
 
 $config['payment_type'] = array("1" => "Credit", "2" => "Debit");
 $config['payment_by'] = array("0" => "Select Payment Type", "1" => "Supplier", "2" => "Customer", "3" => "Account");

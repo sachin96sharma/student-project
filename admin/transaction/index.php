@@ -30,7 +30,7 @@ $rows_list = getwallet_history_list() ;
               <td><strong>Remaining Amount</strong></td>
               <td><strong>Type</strong></td>
               <td><strong>Ref ID</strong></td>
-               <td><strong>Description</strong></td>
+               <td><strong>Wallet</strong></td>
               <td><strong>Payment Status</strong></td>
               <td><strong>Create Date</strong></td>
               <!--	<td><strong>Status</strong></td>-->

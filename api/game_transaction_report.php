@@ -1,19 +1,16 @@
 <?php
 include("../system_config.php");
-include_once("../common/head.php");
-// pr($_POST['key']);die;
-
+//   pr($_POST['key']);die;
 // Check if the request method is POST and content type is JSON
-function sanitizeInput($data)
-{
-    return htmlspecialchars(strip_tags(trim($data)));
-}
+// function sanitizeInput($data)
+// {
+//     return htmlspecialchars(strip_tags(trim($data)));
+// }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'] == 'qwertyupasdfghjklzxcvbnm') {
-
-// pr('hello');die;
+// pr('hell0');die;
     $Id = isset($_POST['id']) ? (int)$_POST['id'] : null;
     if ($Id) {
-        $userExist = getwallet_byID($Id);
+        $userExist = gettransaction_byID($Id);
         // pr( $userExist);die;
         if (!$userExist) {
             http_response_code(400);
@@ -22,16 +19,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
             exit;
         }
     }
-    $user_id = sanitizeInput($_POST['user_id']);
-    $user_amount = sanitizeInput($_POST['user_amount']);
-    $transaction_id = sanitizeInput($_POST['transaction_id']);
-    $payment_status = sanitizeInput($_POST['payment_status']);
+    $username = sanitizeInput($_POST['username']);
+    $amount = sanitizeInput($_POST['amount']);
+    $remaining_amount = sanitizeInput($_POST['remaining_amount']);
+    $ref_id = sanitizeInput($_POST['ref_id']);
+    $type = sanitizeInput($_POST['type']);
+    $wallet = sanitizeInput($_POST['wallet']);
+    $status = sanitizeInput($_POST['status']);
+    $order_id = sanitizeInput($_POST['order_id']);
     // Validate required fields
     $requiredFields = [
-        'user_id',
-        'user_amount',
-        'transaction_id',
-        'payment_status',       
+        'username',
+        'amount',
+        'remaining_amount',
+        'ref_id',
+        'type',
+        'wallet',
+        'status',
+        'order_id',
     ];
     $emptyFields = [];
     foreach ($requiredFields as $fieldName) {
@@ -45,19 +50,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
         echo json_encode(['status' => false, 'message' => 'The following fields are required: ' . implode(', ', $emptyFields)]);
         exit;
     }
-    
-    
     // Prepare and execute SQL query
     if ($Id) {
-        $sql = "UPDATE wallet SET user_id=?, user_amount=?,  transaction_id=?, payment_status=? WHERE id=?";
+        $sql = "UPDATE wallet_history SET username=?, amount=?, remaining_amount=?, ref_id=?, type=?, wallet=?, status=?, order_id=? WHERE id=?";
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, 'isisi', $user_id, $user_amount,  $transaction_id, $payment_status,  $Id);
+        mysqli_stmt_bind_param($stmt, 'ssssssss', $username, $amount, $remaining_amount, $ref_id, $type, $wallet, $status, $order_id, $Id);
     } else {
-        $sql = "INSERT INTO wallet (user_id,user_amount, transaction_id, payment_status) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO wallet_history (username,amount, remaining_amount,ref_id, type,wallet, status,order_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         //  pr( $sql);die;
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, 'isis', $user_id, $user_amount, $transaction_id, $payment_status);
-
+        mysqli_stmt_bind_param($stmt, 'ssssssss', $username, $amount, $remaining_amount, $ref_id, $type, $wallet, $status, $order_id,);
         
     }
 
@@ -71,26 +73,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
         exit;
     }
     // Respond with success message
-    $response = ['status' => true, 'message' => $Id ? 'Your Wallet  has been updated successfully.' : 'Your Wallet procedure has been completed. '];
+    $response = ['status' => true, 'message' => $Id ? 'Your tansaction has been updated successfully.' : 'Your transaction procedure has been completed.'];
     http_response_code($Id ? 200 : 201);
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;
-}else {
-        // Invalid request
-        http_response_code(400);
-        echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
-    }
+}
 
-
-
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm'  && !empty($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] === 'application/json') {
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SERVER['CONTENT_TYPE']) && $_SERVER['CONTENT_TYPE'] === 'application/json') {
 //     // Decode JSON data from request body
 //     $jsonData = json_decode(file_get_contents('php://input'), true);
 
 //     // Check if required data fields are present
-//     if (!isset($jsonData['id'], $jsonData['user_id'], $jsonData['user_amount'], $jsonData['transaction_id'], $jsonData['payment_status'])) {
+//     if (!isset($jsonData['id'], $jsonData['username'], $jsonData['amount'], $jsonData['remaining_amount'], $jsonData['ref_id'], $jsonData['type'], $jsonData['wallet'], $jsonData['status'], $jsonData['order_id'])) {
 //         http_response_code(400);
 //         echo json_encode(['status' => 'error', 'message' => 'Missing required fields']);
 //         exit;
@@ -98,14 +93,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
 
 //     // Sanitize input data (optional but recommended)
 //     $id = mysqli_real_escape_string($link, $jsonData['id']);
-//     $user_id = mysqli_real_escape_string($link, $jsonData['user_id']);
-//     $user_amount = mysqli_real_escape_string($link, $jsonData['user_amount']);
-//     $transaction_id = mysqli_real_escape_string($link, $jsonData['transaction_id']);
-//     $payment_status = mysqli_real_escape_string($link, $jsonData['payment_status']);
+//     $username = mysqli_real_escape_string($link, $jsonData['username']);
+//     $amount = mysqli_real_escape_string($link, $jsonData['amount']);
+//     $remaining_amount = mysqli_real_escape_string($link, $jsonData['remaining_amount']);
+//     $ref_id = mysqli_real_escape_string($link, $jsonData['ref_id']);
+//     $type = mysqli_real_escape_string($link, $jsonData['type']);
+//     $wallet = mysqli_real_escape_string($link, $jsonData['wallet']);
+//     $status = mysqli_real_escape_string($link, $jsonData['status']);
+//     $order_id = mysqli_real_escape_string($link, $jsonData['order_id']);
 
 //     // Prepare the SQL query
-//     $sql = "INSERT INTO wallet (id, user_id, user_amount, transaction_id, payment_status) 
-//             VALUES ('$id', '$user_id', '$user_amount', '$transaction_id', '$payment_status')";
+//     $sql = "INSERT INTO wallet_history (id, username, amount, remaining_amount, ref_id, type, wallet, status, order_id) 
+//     VALUES ('$id', '$username', '$amount', '$remaining_amount', '$ref_id', $type, '$wallet', '$status', '$order_id')";
 
 //     // Execute the SQL query
 //     $result = mysqli_query($link, $sql);

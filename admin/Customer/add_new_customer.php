@@ -125,7 +125,7 @@ if ($per['user']['add'] == 0) { ?>
       <section class="content">
         <div class="box box-info">
           <div class="box-header with-border"> </div>
-          <form id="form" name="form" action="<?php echo SITEPATH; ?>/admin/action/customer.php?action=save" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+          <form id="form" name="form" action="<?php echo SITEPATH; ?>admin/action/customer.php?action=save" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <input id="data_id" name="data_id" type="hidden" value="<?php echo $id ?>" />
             <div class="box-body">
               <div class="row">
@@ -369,7 +369,7 @@ if ($per['user']['add'] == 0) { ?>
                   <input type="submit" value="Submit" />
                   <span></span>
                 </div>
-                <a href="<?php echo SITEPATH; ?>/admin/customer" class="btn btn-cancel">Cancel</a>
+                <a href="<?php echo SITEPATH; ?>admin/Customer" class="btn btn-cancel">Cancel</a>
               </div>
             </div>
           </form>

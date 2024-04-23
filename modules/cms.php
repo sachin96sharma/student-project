@@ -54,9 +54,9 @@ function getWalletUserbyID($id_or_user_id = null)
     return $array;
 }
 
-function getwallet_history_byID($id)
+function getwallet_history_byID($Id)
 {
-    $sql = "select * from " . tbl_wallet_history . "   where id = '" . $id . "'";
+    $sql = "select * from " . tbl_wallet_history . "   where id = '" . $Id . "'";
     $array = FetchRow($sql);
     return $array;
 }
@@ -288,6 +288,9 @@ function getcustomer_byID($id)
     $array = FetchRow($sql);
     return $array;
 }
+
+
+
 function gettransaction_byID($Id)
 {
     $sql = "select * from " . tbl_wallet_history . " where id='" . $Id . "' limit 0,1 ";
@@ -313,13 +316,30 @@ function getGameDetailsByID($id)
     $array = FetchRow($sql);
     return $array;
 }
-function getNotificationDetailsByID($id)
+
+function getGameResultById($id)
+{
+    $sql = "select * from " . tbl_games . " where result='" . $id . "' limit 0,1 ";
+
+    $array = FetchRow($sql);
+    return $array;
+}
+
+function getWalletDetailsById($id)
+{
+    $sql = "select * from " . tbl_wallet . " where id='" . $id . "' limit 0,1 ";
+
+    $array = FetchRow($sql);
+    return $array;
+}
+function  getNotificationDetailsByID($id)
 {
     $sql = "select * from " . tbl_notifications . " where id='" . $id . "' limit 0,1 ";
 
     $array = FetchRow($sql);
     return $array;
 }
+
 function getcustomer_list()
 {
     $sql = "select * from " . tbl_customer . " order by  user_id desc";
@@ -415,6 +435,28 @@ function getdistrict_list()
     $sql = "select * from " . tbl_district . " order by  district_id desc";
     $array = FetchAll($sql);
     return $array;
+}
+function getallGame_list()
+{
+    $sql = "SELECT name FROM " . tbl_games . " ORDER BY id DESC";
+    $array = FetchAll($sql);
+    return $array;
+}
+function getGameby_Id($id)
+{
+    $sql = "SELECT name FROM " . tbl_games . " WHERE id = '" . $id . "' LIMIT 1";
+    $array = FetchAll($sql);
+    return $array;
+}
+function getUserWallet_list(){
+    $sql = "SELECT user_id, user_amount FROM " . tbl_wallet . " ORDER BY id DESC ";
+    $array = FetchAll($sql);
+    return $array;
+}
+function getUserWallet_Id($id){ 
+    $sql = "SELECT user_id, user_amount FROM " . tbl_wallet . " WHERE user_id = '" . $id . "' ORDER BY id DESC LIMIT 1";
+    $array = FetchAll($sql);
+    return $array;        
 }
 
 function getState_byID($id)
@@ -548,19 +590,54 @@ function getGame_list()
     $games = FetchAll($sql);
     return $games;
 }
-function getReport_list($gameId = null)
+function getReport_bylist($gameId = null)
 {
     if ($gameId) {
-        $sql = "SELECT * FROM game_report WHERE game_id =" . $gameId . " ORDER BY game_report_id DESC";
+        $sql = "SELECT * FROM tbl_game_report WHERE game_id = " . $gameId . " ORDER BY id DESC";
     } else {
-        $sql = "SELECT * FROM game_report ORDER BY game_report_id DESC";
+        $sql = "SELECT * FROM tbl_game_report ORDER BY id DESC";
     }
+    
+    // Assuming FetchAll is a function that executes the SQL query and fetches all results
     $games = FetchAll($sql);
+    
+    // Return the fetched results
     return $games;
 }
+
 function getReportbyId($Id)
 {
     $sql = "select * from " . tbl_game_report . " where id='" . $Id . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
+}
+function gameReportbyId($Id)
+{
+    $sql = "select * from " . tbl_game_report . " where game_id='" . $Id . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
+}
+function gameReport_list()
+{
+    $sql = "SELECT * FROM game_report ORDER BY id DESC";
+    $games = FetchAll($sql);
+    return $games;
+}
+
+
+function getNotificationbyId($Id)
+{
+    $sql = "select * from " . tbl_notifications . " where id='" . $Id . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
+}
+function getNotificationtypeOrId($Id_or_type = null)
+{
+    if (is_numeric($Id_or_type)) {
+        $sql = "select * from " . tbl_notifications . " where id = '" . $Id_or_type . "' limit 0,1 ";
+    } else {
+        $sql = "select * from " . tbl_notifications . " where type = '" . $Id_or_type . "' limit 0,1 ";
+    }
     $array = FetchRow($sql);
     return $array;
 }
@@ -568,6 +645,12 @@ function getReportbyId($Id)
 function getNotification_list()
 {
     $sql = "SELECT * FROM notifications ORDER BY id DESC";
+    $games = FetchAll($sql);
+    return $games;
+}
+function getTransaction_list()
+{
+    $sql = "SELECT * FROM wallet_history ORDER BY id DESC";
     $games = FetchAll($sql);
     return $games;
 }

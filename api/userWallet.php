@@ -10,12 +10,9 @@ function sanitizeInput($data)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
 
     if (isset($_POST['user_id'])) {
-        $userId = sanitizeInput($_POST['user_id']);
-        $userData = getcustomer_byID($userId);
-
-        if ($userData) {
-            $userData['user_logo'] = SITEPATH . (($userData['user_logo']) ? $config['Images'] .  $userData['user_logo'] : '/sdf');
-
+        $Id = sanitizeInput($_POST['user_id']);
+        $userData = getUserWallet_Id($Id);
+        if ($userData) {            
             $response = array(
                 'status' => true,
                 'user' => $userData
@@ -28,16 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         } else {
             http_response_code(404);
             header('Content-Type: application/json');
-            echo json_encode(['status' => false, 'error' => 'User not found']);
+            echo json_encode(['status' => false, 'error' => 'Game not found']);
             exit;
         }
     } else {
-        $result = getcustomer_list();
+        $result =  getUserWallet_list();
         $response = array(
             'status' => true,
             'users' => $result,
         );
-
         header('Content-Type: application/json');
         http_response_code(200);
         echo json_encode($response);

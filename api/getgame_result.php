@@ -35,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $result = getcustomer_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'gameWinerCount' => $result,
+            'gameInfo' => $result,
         );
 
         header('Content-Type: application/json');

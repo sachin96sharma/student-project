@@ -161,7 +161,7 @@
       </li>
       <li class="treeview"> <a><i class="fa  fa-rss-square nav_icon"></i> <span>Wallet Management</span> <i class="fa fa-angle-left pull-right"></i> </a>
         <ul class="treeview-menu">
-          <!-- <li><a href="<?php echo SITEPATH; ?>admin/notification/add-notification.php"><i class="fa fa-caret-right"></i> Add New</a></li> -->
+          <li><a href="<?php echo SITEPATH; ?>admin/wallet/addwallet.php"><i class="fa fa-caret-right"></i> Add New</a></li>
           <li><a href="<?php echo SITEPATH; ?>admin/wallet/index.php"><i class="fa fa-caret-right"></i> View All</a></li>
         </ul>
       </li>

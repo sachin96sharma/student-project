@@ -130,12 +130,12 @@ if ($per['user']['view'] == 0) { ?>
                         </div>
                       <?php } ?>
                       &nbsp;&nbsp;
-                      <!-- <?php if ($per['user']['del'] == 1) { ?>
-                        <a href="<?php echo SITEPATH; ?>/admin/action/customer.php?action=del&id=<?php echo  urlencode(encryptIt($rows['user_id'])); ?>" onClick="return confirmDelete();" onMouseOver="showbox('Delete<?php echo $i; ?>')" onMouseOut="hidebox('Delete<?php echo $i; ?>')"><i class="fa fa-times"></i></a>
+                      <?php if ($per['user']['del'] == 1) { ?>
+                        <a href="<?php echo SITEPATH; ?>/admin/action/customer.php?action=del&id=<?php echo  urlencode(encryptIt($rows['user_id'])); ?>" onClick="return confirm('Are you sure you want to delete?');" onMouseOver="showbox('Delete<?php echo $i; ?>')" onMouseOut="hidebox('Delete<?php echo $i; ?>')"><i class="fa fa-times"></i></a>
                         <div id="Delete<?php echo $i; ?>" class="hide1">
                           <p>Delete</p>
                         </div>
-                      <?php } ?> -->
+                      <?php } ?>
                     </td>
                   <?php } ?>
                 </tr>

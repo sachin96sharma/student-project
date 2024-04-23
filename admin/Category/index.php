@@ -98,8 +98,8 @@ foreach ($rows_list as $rows) {
                 </div>
                 &nbsp;&nbsp;
                 <?php }?>
-                <?php if( $per['categories']['del']==1 ){?>
-                <!-- <a href="<?php  echo SITEPATH;?>/admin/action/categories.php?action=del&id=<?php echo  urlencode(encryptIt($rows['cat_id'])); ?>"onClick="return confirmDelete();" onMouseOver="showbox('Delete<?php echo $i;?>')" onMouseOut="hidebox('Delete<?php echo $i;?>')"><i class="fa fa-times"></i></a> -->
+                <?php if( $per['categories']['del']==1 ){?><a href="<?php echo SITEPATH;?>/admin/action/categories.php?action=del&id=<?php echo urlencode(encryptIt($rows['cat_id'])); ?>" onClick="return confirm('Are you sure you want to delete?');" onMouseOver="showbox('Delete<?php echo $i;?>')" onMouseOut="hidebox('Delete<?php echo $i;?>')"><i class="fa fa-times"></i></a>
+
                 <div id="Delete<?php echo $i;?>" class="hide1">
                   <p>Delete</p>
                 </div>

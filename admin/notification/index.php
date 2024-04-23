@@ -100,6 +100,11 @@ foreach ($games as $game) {
       <div id="Edit<?php echo $i;?>" class="hide1">
         <p>Edit</p>
       </div>
+      &nbsp;&nbsp;<a href="<?php echo SITEPATH;?>/admin/action/notifications.php?action=del&id=<?php echo urlencode(encryptIt($rows['id'])); ?>" onClick="return confirm('Are you sure you want to delete?');" onMouseOver="showbox('Delete<?php echo $i;?>')" onMouseOut="hidebox('Delete<?php echo $i;?>')"><i class="fa fa-times"></i></a>
+
+<div id="Delete<?php echo $i;?>" class="hide1">
+  <p>Delete</p>
+</div>
     <?php }?>
   </td>
 </tr>

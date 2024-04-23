@@ -98,13 +98,13 @@ return false;
                 <div class="form-group">
                   <label>Customer Name</label>
                   <select id="customer_id" name="customer_id" class="form-control" onfocusout="getState(this.value)">
-                <?php 
-	$rows_list = getcustomer_byList();
-	$i="active";	
-	foreach($rows_list as $rows) {	 ?>
-                <option value="<?php echo $rows['user_id']; ?>" <?php if ($row['username']== $rows['user_id']){ echo "selected";} ?> ><?php echo $rows['first_name']; ?></option>
-                <?php }?>
-              </select>
+                   <?php 
+	                  $rows_list = getcustomer_byList();
+	                           $i="active";	
+	                         foreach($rows_list as $rows) {	 ?>
+                      <option value="<?php echo $rows['user_id']; ?>" <?php if ($row['username']== $rows['user_id']){ echo "selected";} ?> ><?php echo $rows['first_name']; ?></option>
+                        <?php }?>
+                          </select>
                   <label class="label-brdr" style="width: 0%;"></label>
                 </div>
               </div>

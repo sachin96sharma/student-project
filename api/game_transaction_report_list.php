@@ -9,13 +9,10 @@ function sanitizeInput($data)
 // pr($_POST);die;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
 
-    if (isset($_POST['user_id'])) {
-        $userId = sanitizeInput($_POST['user_id']);
-        $userData = getcustomer_byID($userId);
-
-        if ($userData) {
-            $userData['user_logo'] = SITEPATH . (($userData['user_logo']) ? $config['Images'] .  $userData['user_logo'] : '/sdf');
-
+    if (isset($_POST['id'])) {
+        $Id = sanitizeInput($_POST['id']);
+        $userData = getwallet_history_byID($Id);
+        if ($userData) {            
             $response = array(
                 'status' => true,
                 'user' => $userData
@@ -28,16 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         } else {
             http_response_code(404);
             header('Content-Type: application/json');
-            echo json_encode(['status' => false, 'error' => 'User not found']);
+            echo json_encode(['status' => false, 'error' => 'Transaction Id  not found']);
             exit;
         }
     } else {
-        $result = getcustomer_list();
+        $result = getwallet_history_list();
         $response = array(
             'status' => true,
             'users' => $result,
         );
-
         header('Content-Type: application/json');
         http_response_code(200);
         echo json_encode($response);

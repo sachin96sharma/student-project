@@ -21,11 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
             }
         }
         $game_id = sanitizeInput($_POST['game_id']);
+        $choose_number = sanitizeInput($_POST['choose_number']);
         $user_id = sanitizeInput($_POST['user_id']);
         $bet_amount = sanitizeInput($_POST['bet_amount']);
         // Validate required fields
         $requiredFields = [
             'game_id',
+            'choose_number',
             'user_id',
             'bet_amount',           
         ];
@@ -43,14 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
         }
         // Prepare and execute SQL query
         if ($Id) {
-            $sql = "UPDATE game_report SET game_id=?, user_id=?, bet_amount=?  WHERE id=?";
+            $sql = "UPDATE game_report SET game_id=?,choose_number=?, user_id=?, bet_amount=?  WHERE id=?";
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, 'iisi', $game_id, $user_id, $bet_amount, $Id);
+            mysqli_stmt_bind_param($stmt, 'iiisi', $game_id,$choose_number, $user_id, $bet_amount, $Id);
         } else {
-            $sql = "INSERT INTO game_report (game_id,user_id, bet_amount) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO game_report (game_id,choose_number,user_id, bet_amount) VALUES (?, ?, ?, ?)";
             //  pr( $sql);die;
             $stmt = mysqli_prepare($link, $sql);
-            mysqli_stmt_bind_param($stmt, 'iis', $game_id, $user_id, $bet_amount );
+            mysqli_stmt_bind_param($stmt, 'iiis', $game_id,$choose_number,$user_id, $bet_amount );
             
         }
     

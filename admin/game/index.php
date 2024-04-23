@@ -114,7 +114,7 @@ if ($r['user_type'] == "1") {
                       <?php } ?>
 
                       &nbsp;&nbsp;
-                      <a href="<?= SITEPATH . '/admin/game/game-report.php?gameId=' . $game['id']; ?>" title="Game Report" target="_blank">
+                      <a href="<?= SITEPATH . 'admin/game/game-report.php?gameId=' . $game['id']; ?>" title="Game Report" target="_blank">
                       <i class="fa fa-bar-chart"></i>
                       </a>
 

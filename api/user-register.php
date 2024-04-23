@@ -75,19 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         'first_name',
         'user_email',
         'user_phone',
-        'user_country',
-        'user_state',
-        'user_district',
-        'user_address',
         'user_pass',
-        'fund_wallet',
-        'bank_accountno',
-        'bank_ifsccode',
-        'bank_name',
-        'accountholder_name',
-        'ref_id',
-        'ref_by',
-        'balance'
+        
     ];
 
     $emptyFields = [];

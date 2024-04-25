@@ -15,6 +15,7 @@ if ($r['user_type'] == "1") {
   $games = getGameDetailsByID($_SESSION['AdminLogin']); // Implement this function to get games by user
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 

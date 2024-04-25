@@ -1,9 +1,8 @@
 <?php
 include("../../system_config.php");
 include_once("../common/head.php");
-// pr('hello');die;
+// pr($r['user_type']);die;
 $gameId = $_GET['gameId'];
-// pr($gameId);die;
 // Check permissions
 if ($per['user']['view'] == 0) {
     header("Location: ../dashboard.php");
@@ -13,7 +12,7 @@ if ($per['user']['view'] == 0) {
 // Retrieve game data from the database
 if ($r['user_type'] == "1") {
     $gameArra = getReport_bylist($gameId);
-    
+    // pr($getReport_bylist);die;
 } else {
     $games = getGameDetailsByID($_SESSION['AdminLogin']); // Implement this function to get games by user
 }

@@ -593,12 +593,11 @@ function getGame_list()
 function getReport_bylist($gameId = null)
 {
     if ($gameId) {
-        $sql = "SELECT * FROM tbl_game_report WHERE game_id = " . $gameId . " ORDER BY id DESC";
+        $sql = "SELECT * FROM " . tbl_game_report . " WHERE game_id = " . $gameId . " ORDER BY id DESC";
     } else {
-        $sql = "SELECT * FROM tbl_game_report ORDER BY id DESC";
+        $sql = "SELECT * FROM " . tbl_game_report . " ORDER BY id DESC";
     }
-    
-    // Assuming FetchAll is a function that executes the SQL query and fetches all results
+    // pr($sql);die;
     $games = FetchAll($sql);
     
     // Return the fetched results

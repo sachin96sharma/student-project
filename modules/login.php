@@ -2,42 +2,45 @@
 if (!defined('ABSPATH'))
     die('-1');
 define("tbl_login", "reg_user");
-function check_authorization($login_detail) {
+function check_authorization($login_detail)
+{
     $username = $login_detail['user_email'];
     $userpassword = encryptIt($login_detail['user_pass']);
-   // echo decryptIt("aUUvKfdfHBwHAxUh9276cBloi/IDIcM40F7mKnpsy90=");
+    // echo decryptIt("aUUvKfdfHBwHAxUh9276cBloi/IDIcM40F7mKnpsy90=");
     $sql = "select * from " . tbl_login . " where user_email ='" . $username . "' and user_pass='" . $userpassword . "'  and user_status = 0 limit 0,1 ";
-$array = FetchRow($sql);
-	if (empty($array)) {
+    $array = FetchRow($sql);
+    if (empty($array)) {
         $array['error'] = "No records Founds. Pleae try again";
     }
     return $array;
 }
-function user_authorization($login_detail) {
-   $username = $login_detail['user_email'];
-   $userpassword = encryptIt($login_detail['user_pass']);
-   $sql = "select * from " . tbl_login . " where user_email ='" . $username . "' and user_pass='" . $userpassword . "'  and user_status = 0 and user_type=0 limit 0,1 ";
+function user_authorization($login_detail)
+{
+    $username = $login_detail['user_email'];
+    $userpassword = encryptIt($login_detail['user_pass']);
+    $sql = "select * from " . tbl_login . " where user_email ='" . $username . "' and user_pass='" . $userpassword . "'  and user_status = 0 and user_type=0 limit 0,1 ";
 
-	$array = FetchRow($sql);
-	if (empty($array)) {
+    $array = FetchRow($sql);
+    if (empty($array)) {
         $array['error'] = "No records Founds. Pleae try again";
     }
     return $array;
-	
 }
-function password_generator($length = 8) {
+function password_generator($length = 8)
+{
 
     $output = "";
     return $output;
 }
-function forgot_password($email = "") {
+function forgot_password($email = "")
+{
 
     $output = "";
     return $output;
 }
-function change_password($email = "", $oldpassword = "") {
+function change_password($email = "", $oldpassword = "")
+{
 
     $output = "";
     return $output;
 }
-?>

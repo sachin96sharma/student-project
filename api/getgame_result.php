@@ -1,21 +1,17 @@
 <?php
 include("../system_config.php");
-
 function sanitizeInput($data)
 {
     return htmlspecialchars(strip_tags(trim($data)));
 }
-
 // pr($_POST);die;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
-
     if (isset($_POST['user_id'])) {
         $userId = sanitizeInput($_POST['user_id']);
         $userData = getcustomer_byID($userId);
 
         if ($userData) {
             $userData['user_logo'] = SITEPATH . (($userData['user_logo']) ? $config['Images'] .  $userData['user_logo'] : '/sdf');
-
             $response = array(
                 'status' => true,
                 'user' => $userData

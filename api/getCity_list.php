@@ -9,13 +9,14 @@ function sanitizeInput($data)
 // pr($_POST);die;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
 
-    if (isset($_POST['district_id'])) {
-        $Id = sanitizeInput($_POST['district_id']);
-        $userData = getdistrict_byID($Id);
-        if ($userData) {            
+    if (isset($_POST['stateID'])) {
+        $Id = sanitizeInput($_POST['stateID']);
+        $Citydata = getcity_bystateID($Id);
+        if ($Citydata) {            
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => 'All City  retrieved successfully',
+                'data' => $Citydata
             );
 
             header('Content-Type: application/json');
@@ -29,10 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
             exit;
         }
     } else {
-        $result =  getdistrict_list();
+        $result =  getcity_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'message' => 'City  retrieved successfully',
+            'data' => $result,
         );
         header('Content-Type: application/json');
         http_response_code(200);

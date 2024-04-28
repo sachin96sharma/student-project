@@ -24,14 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
     }
     $user_id = sanitizeInput($_POST['user_id']);
     $user_amount = sanitizeInput($_POST['user_amount']);
-    $transaction_id = sanitizeInput($_POST['transaction_id']);
-    $payment_status = sanitizeInput($_POST['payment_status']);
+    // $transaction_id = sanitizeInput($_POST['transaction_id']);
+    // $payment_status = sanitizeInput($_POST['payment_status']);
     // Validate required fields
     $requiredFields = [
         'user_id',
         'user_amount',
-        'transaction_id',
-        'payment_status',       
+             
     ];
     $emptyFields = [];
     foreach ($requiredFields as $fieldName) {
@@ -49,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
     
     // Prepare and execute SQL query
     if ($Id) {
-        $sql = "UPDATE wallet SET user_id=?, user_amount=?,  transaction_id=?, payment_status=? WHERE id=?";
+        $sql = "UPDATE wallet SET user_id=?, user_amount=? WHERE id=?";
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, 'isisi', $user_id, $user_amount,  $transaction_id, $payment_status,  $Id);
+        mysqli_stmt_bind_param($stmt, 'isi', $user_id, $user_amount,$Id);
     } else {
-        $sql = "INSERT INTO wallet (user_id,user_amount, transaction_id, payment_status) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO wallet (user_id,user_amount) VALUES (?, ?)";
         //  pr( $sql);die;
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, 'isis', $user_id, $user_amount, $transaction_id, $payment_status);
+        mysqli_stmt_bind_param($stmt, 'is', $user_id, $user_amount);
 
         
     }

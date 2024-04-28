@@ -12,6 +12,7 @@ switch ($action) {
         $field['gamestart'] = get_safe_post('gamestart');
         $field['gameend'] = get_safe_post('gameend');
         $field['gamebiding'] = get_safe_post('gamebiding');
+        $field['countdown'] = get_safe_post('countdown'); 
         $field['result'] = get_safe_post('result');
         $field['status'] = get_safe_post('status');
         
@@ -28,16 +29,16 @@ switch ($action) {
         }
         
         $primary_value = get_safe_post('data_id');
-        $output =  save_command("games", $field, "id", $primary_value);
+        $output =  save_command("games", $field, "game_id", $primary_value);
         $_SESSION['msg'] = $output;
         break;
         // update
         
     
         case "status":
-            if (isset($_GET['id'])) {
+            if (isset($_GET['game_id'])) {
                 // Decode the ID parameter
-                $id = decryptIt(urldecode($_GET['id']));
+                $id = decryptIt(urldecode($_GET['game_id']));
                 // Retrieve game details by ID
                 $row1 = getGameDetailsByID($id); // Implement this function to get game details by ID
             
@@ -55,7 +56,7 @@ switch ($action) {
                     // Update status in the database
                     $field['status'] = $status;
                     $primary_value = $id;
-                    $output = save_command("games", $field, 'id', $primary_value); 
+                    $output = save_command("games", $field, 'game_id', $primary_value); 
                 // Ensure correct table name and primary key field
                     $_SESSION['msg'] = $output; // Store output message in session variable
                 } else {

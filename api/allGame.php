@@ -11,12 +11,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
 
     if (isset($_POST['id'])) {
         $Id = sanitizeInput($_POST['id']);
-        $userData = getGameby_Id($Id);
-        if ($userData) {            
-            $response = array(
+        $gameDetails = getGameby_Id($Id);
+        if ($gameDetails) {
+            $gameImage = ($gameDetails['image']) ? SITEPATH . $config['image'] . $gameDetails['image'] : SITEPATH . NOIMAGE;
+            $gameDetails['image'] = $gameImage;
+
+            $response = [
                 'status' => true,
-                'user' => $userData
-            );
+                'message' => 'Game  retrieved successfully',
+                'data' => $gameDetails,
+            ];
+
 
             header('Content-Type: application/json');
             http_response_code(200);
@@ -30,10 +35,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         }
     } else {
         $result =  getallGame_list();
-        $response = array(
+        $totalData = [];
+
+        foreach ($result as $value) {
+            $gameImage = ($value['image']) ? SITEPATH . $config['image'] . $value['image'] : SITEPATH . NOIMAGE;
+            $value['image'] = $gameImage;
+            $totalData[] = $value;
+        }
+
+        $response = [
             'status' => true,
-            'users' => $result,
-        );
+            'message' => 'Game list retrieved successfully',
+            'data' => $totalData,
+        ];
+
+
         header('Content-Type: application/json');
         http_response_code(200);
         echo json_encode($response);

@@ -68,9 +68,10 @@ if ($r['user_type'] == "1") {
                 <td><strong>Category</strong></td>
                 <td><strong>Game Name</strong></td>
                 <td><strong>Image</strong></td>
-                <td><strong>Game Play Date</strong></td>
-                <td><strong>Biding Start Date</strong></td>
-                <td><strong> Biding End Date</strong></td>
+                <td><strong>Biding Start Date and time</strong></td>
+                <td><strong>Game Play Date and time</strong></td>  
+                <td><strong> Game End Date and time</strong></td>
+                <td><strong>Countdown(In minutes)</strong></td>
                 <td><strong>Result</strong></td>
                 <!-- <td><strong>Status</strong></td> -->
                 <td><strong>Action</strong></td>
@@ -88,16 +89,17 @@ if ($r['user_type'] == "1") {
                   <td><?php echo htmlspecialchars($getCategory['cat_name']); ?></td>
                   <td><?php echo htmlspecialchars($game['name']); ?></td>
                   <td><img src="<?php echo htmlspecialchars(SITEPATH . 'upload/image/' . $game['image']); ?>" width="100" height="100"></td>
-                  <td><?php echo htmlspecialchars($game['gamestart']); ?></td>
                   <td><?php echo htmlspecialchars($game['gamebiding']); ?></td>
+                  <td><?php echo htmlspecialchars($game['gamestart']); ?></td>
                   <td><?php echo htmlspecialchars($game['gameend']); ?></td>
+                  <td><?php echo htmlspecialchars($game['countdown']); ?></td>
                   <td><?php echo htmlspecialchars($game['result']); ?></td>
                   <!-- <td><?php echo htmlspecialchars($game['status']); ?></td> -->
 
                   <?php if ($r['user_type'] == "1") { ?>
                     <td id="font12" style="width:10%">
                       <?php if ($per['user']['edit'] == 1) { ?>
-                        <a href="<?php echo htmlspecialchars(SITEPATH); ?>/admin/action/games.php?action=status&id=<?php echo urlencode(encryptIt($game['id'])); ?>" <?php if ($game['status'] == "active") { ?> onMouseOver="showbox('active<?php echo $i; ?>')" onMouseOut="hidebox('active<?php echo $i; ?>')"><i class="fa fa-angle-double-up"></i>
+                        <a href="<?php echo htmlspecialchars(SITEPATH); ?>/admin/action/games.php?action=status&game_id=<?php echo urlencode(encryptIt($game['game_id'])); ?>" <?php if ($game['status'] == "active") { ?> onMouseOver="showbox('active<?php echo $i; ?>')" onMouseOut="hidebox('active<?php echo $i; ?>')"><i class="fa fa-angle-double-up"></i>
                         <?php } else { ?>
                           onMouseOver="showbox('inactive<?php echo $i; ?>')" onMouseOut="hidebox('inactive<?php echo $i; ?>')"> <i class="fa fa-angle-double-down"></i>
                         <?php } ?>
@@ -108,14 +110,14 @@ if ($r['user_type'] == "1") {
                         <div id="inactive<?php echo $i; ?>" class="hide1">
                           <p>Inactive</p>
                         </div>
-                        &nbsp;&nbsp; <a href="<?php echo htmlspecialchars(SITEPATH); ?>/admin/Game/add-game.php?id=<?php echo urlencode(encryptIt($game['id'])); ?>" onMouseOver="showbox('Edit<?php echo $i; ?>')" onMouseOut="hidebox('Edit<?php echo $i; ?>')"> <i class="fa fa-pencil"></i></a>
+                        &nbsp;&nbsp; <a href="<?php echo htmlspecialchars(SITEPATH); ?>/admin/Game/add-game.php?game_id=<?php echo urlencode(encryptIt($game['game_id'])); ?>" onMouseOver="showbox('Edit<?php echo $i; ?>')" onMouseOut="hidebox('Edit<?php echo $i; ?>')"> <i class="fa fa-pencil"></i></a>
                         <div id="Edit<?php echo $i; ?>" class="hide1">
                           <p>Edit</p>
                         </div>
                       <?php } ?>
 
                       &nbsp;&nbsp;
-                      <a href="<?= SITEPATH . 'admin/game/game-report.php?gameId=' . $game['id']; ?>" title="Game Report" target="_blank">
+                      <a href="<?= SITEPATH . 'admin/game/game-report.php?gameId=' . $game['game_id']; ?>" title="Game Report" target="_blank">
                       <i class="fa fa-bar-chart"></i>
                       </a>
 

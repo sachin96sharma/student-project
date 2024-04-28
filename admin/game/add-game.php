@@ -4,12 +4,13 @@ include_once("../common/head.php");
 
 $name = "Add Game";
 
-if (isset($_GET['id'])) {
+if (isset($_GET['game_id'])) {
     $name = "Update Game";
 
-    $id = decryptIt($_GET['id']);
+    $id = decryptIt($_GET['game_id']);
     // You might want to implement a function like getCategory_byID() for retrieving game details by ID
     $gameDetails = getGameDetailsByID($id);
+    // pr($gameDetails);die;
     $st = $gameDetails['status'];
 }
 
@@ -55,7 +56,7 @@ if ($per['categories']['add'] == 0) {
                     <!-- <div align="center" style="color:#FF0000">
                         ?php echo $_SESSION['msg']; ?>
                     </div> -->
-                    <form id="form" name="form" action="<?php echo SITEPATH; ?>/admin/action/games.php?action=save" method="post" enctype="multipart/form-data" >
+                    <form id="form" name="form" action="<?php echo SITEPATH; ?>/admin/action/games.php?action=save" method="post" enctype="multipart/form-data">
                         <input id="data_id" name="data_id" type="hidden" value="<?php echo isset($id) ? $id : ''; ?>" />
                         <div class="box-body">
                             <div class="row">
@@ -87,36 +88,48 @@ if ($per['categories']['add'] == 0) {
                                         <label for="image">Image:</label>
                                         <input type="file" name="image" id="image" class="form-control">
                                     </div>
-                            </div>
-                            <div class="row">
-                             
+                                </div>
+                                <div class="row">
+
                                 </div>
                                 <!-- game -->
-                               
+
                             </div>
                             <div class="row">
-                            <div class="col-sm-4">
+                                <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="gamebidingdate">Game Biding Start date and Time:</label>
+                                        <label for="gamebidingdate">Game Biding date and Time:</label>
                                         <input type="datetime-local" name="gamebiding" id="gamebiding" class="form-control" value="<?php echo isset($gameDetails['gamebiding']) ? $gameDetails['gamebiding'] : ''; ?>" step="1" required>
                                     </div>
                                 </div>
-                            <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="gameenddate">Game Biding End Date and Time:</label>
-                                        <input type="datetime-local" name="gameend" id="gameend" class="form-control" value="<?php echo isset($gameDetails['gameend']) ? $gameDetails['gameend'] : ''; ?>" step="1" required>
-                                    </div>
-                                </div>
+
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="gamestartdate">Game Play Date and Time:</label>
                                         <input type="datetime-local" name="gamestart" id="gamestart" class="form-control" value="<?php echo isset($gameDetails['gamestart']) ? $gameDetails['gamestart'] : ''; ?>" step="1" required>
                                     </div>
                                 </div>
-                                
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="gameenddate">Game End Date and Time:</label>
+                                        <input type="datetime-local" name="gameend" id="gameend" class="form-control" value="<?php echo isset($gameDetails['gameend']) ? $gameDetails['gameend'] : ''; ?>" step="1" required>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div class="row">
+                        <div class="col-sm-4">
+                        <div class="form-group">
+    <label for="countdown">Countdown (In Minutes)</label>
+    <select name="countdown" id="countdown" class="form-control" required>
+        <option value="1" <?php echo (isset($gameDetails['countdown']) && $gameDetails['countdown'] == 1) ? 'selected' : ''; ?>>1 Minute</option>
+        <option value="2" <?php echo (isset($gameDetails['countdown']) && $gameDetails['countdown'] == 2) ? 'selected' : ''; ?>>2 Minutes</option>
+        <option value="3" <?php echo (isset($gameDetails['countdown']) && $gameDetails['countdown'] == 3) ? 'selected' : ''; ?>>3 Minutes</option>
+        <option value="5" <?php echo (isset($gameDetails['countdown']) && $gameDetails['countdown'] == 5) ? 'selected' : ''; ?>>5 Minutes</option>
+    </select>
+</div>
+                               </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="result">Result:</label>
@@ -163,7 +176,7 @@ if ($per['categories']['add'] == 0) {
 
 
 
-<!-- 
+    <!-- 
     <script>
         function validateDateTime() {
             // Get the elements

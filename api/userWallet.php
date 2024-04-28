@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         if ($userData) {            
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => 'User   retrieved successfully',
+                'data' => $userData
             );
 
             header('Content-Type: application/json');
@@ -32,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $result =  getUserWallet_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'message' => 'All Users   retrieved successfully',
+            'data' => $result,
         );
         header('Content-Type: application/json');
         http_response_code(200);

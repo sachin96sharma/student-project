@@ -6,16 +6,19 @@ function sanitizeInput($data)
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
+
 // pr($_POST);die;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
 
     if (isset($_POST['stateID'])) {
         $Id = sanitizeInput($_POST['stateID']);
-        $userData = getState_byID($Id);
-        if ($userData) {            
+        // $Id = sanitizeInput(date('Y-m-d H:i:s',strtotime($_POST['stateID']));
+        $Statedata = getState_byID($Id);
+        if ($Statedata) {            
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => 'State  retrieved successfully',
+                'data' => $Statedata
             );
 
             header('Content-Type: application/json');
@@ -32,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $result =  getState_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'message' => 'All State  retrieved successfully',
+            'data' => $result,
         );
         header('Content-Type: application/json');
         http_response_code(200);

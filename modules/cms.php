@@ -21,6 +21,7 @@ define("tbl_games", "games");
 define("tbl_notifications", "notifications");
 define("tbl_game_report", "game_report");
 define("tbl_wallet", "wallet");
+define("tbl_city", "city");
 
 
 
@@ -39,8 +40,8 @@ function getwallet_list()
 }
 function getwallet_byID($Id)
 {
-    $sql = "select * from " . tbl_wallet . " where id='" . $Id . "' limit 0,1 ";
-    $array = FetchRow($sql);
+    $sql = "select user_id,user_amount,payment_status,created_at from " . tbl_wallet . " where user_id='" . $Id . "' ";
+    $array = FetchAll($sql);
     return $array;
 }
 function getWalletUserbyID($id_or_user_id = null)
@@ -288,7 +289,12 @@ function getcustomer_byID($id)
     $array = FetchRow($sql);
     return $array;
 }
-
+function getgame_byID($gameId)
+{
+    $sql = "select * from " . tbl_games . " where game_id='" . $gameId . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
+}
 
 
 function gettransaction_byID($Id)
@@ -311,8 +317,9 @@ function getUserByEmailOrId($id_or_email = null)
 
 function getGameDetailsByID($id)
 {
-    $sql = "select * from " . tbl_games . " where id='" . $id . "' limit 0,1 ";
+    $sql = "select * from " . tbl_games . " where game_id='" . $id . "' limit 0,1 ";
 
+// pr($sql);die;
     $array = FetchRow($sql);
     return $array;
 }
@@ -424,28 +431,30 @@ function getnews_list_by_dash()
     return $array;
 }
 
-function getdistrict_byID($id)
+function getcity_bystateID($id)
 {
-    $sql = "select * from " . tbl_district . " where district_id='" . $id . "' limit 0,1 ";
-    $array = FetchRow($sql);
+    $sql = "SELECT * FROM city WHERE stateID = '".$id."' ";
+    // pr($sql);die;
+    $array = FetchAll($sql);
     return $array;
 }
-function getdistrict_list()
+function getcity_list()
 {
-    $sql = "select * from " . tbl_district . " order by  district_id desc";
+    $sql = "select * from " . tbl_city . " order by city_id asc";
+    // pr($sql);die;
     $array = FetchAll($sql);
     return $array;
 }
 function getallGame_list()
 {
-    $sql = "SELECT name FROM " . tbl_games . " ORDER BY id DESC";
+    $sql = "SELECT name,id, image FROM " . tbl_games . " ORDER BY id DESC";
     $array = FetchAll($sql);
     return $array;
 }
 function getGameby_Id($id)
 {
-    $sql = "SELECT name FROM " . tbl_games . " WHERE id = '" . $id . "' LIMIT 1";
-    $array = FetchAll($sql);
+    $sql = "SELECT name,image,id FROM " . tbl_games . " WHERE id = '" . $id . "' LIMIT 1";
+    $array = FetchRow($sql);
     return $array;
 }
 function getUserWallet_list(){
@@ -586,7 +595,7 @@ function getuser_byList_byCate($id)
 // get game list
 function getGame_list()
 {
-    $sql = "SELECT * FROM games ORDER BY id DESC";
+    $sql = "SELECT * FROM games ORDER BY game_id DESC";
     $games = FetchAll($sql);
     return $games;
 }

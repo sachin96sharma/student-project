@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $userData = getcustomer_byID($userId);
 
         if ($userData) {
-            $userData['user_logo'] = SITEPATH . (($userData['user_logo']) ? $config['Images'] .  $userData['user_logo'] : '/sdf');
-
+           
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => 'user  retrieved successfully',
+                'data' => $userData
             );
 
             header('Content-Type: application/json');
@@ -35,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $result = getcustomer_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'message' => 'All User  retrieved successfully',
+            'data' => $result,
         );
 
         header('Content-Type: application/json');

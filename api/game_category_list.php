@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
 
     if (isset($_POST['cat_id'])) {
         $Id = sanitizeInput($_POST['cat_id']);
-        $userData = getCategory_byID($Id);
-        if ($userData) {            
+        $catdata = getCategory_byID($Id);
+        if ($catdata) {            
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => 'Category  retrieved successfully',
+                'data' => $catdata
             );
 
             header('Content-Type: application/json');
@@ -32,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $result = getCategory_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'message' => 'All Category  retrieved successfully',
+            'data' => $result,
         );
         header('Content-Type: application/json');
         http_response_code(200);

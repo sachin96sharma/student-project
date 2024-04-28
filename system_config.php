@@ -105,7 +105,7 @@ $config['category_video'] = "upload/video/";
 $config['category_video'] = "upload/video/";
 $config['document_file'] = "upload/document_file/";
 $config['document_sample'] = "upload/document_sample/";
-
+define("NOIMAGE", $config['image'].'noimage.jpg');
 $config['display_status'] = array("0" => "Active", "1" => "Inactive");
 $config['sms_type'] = array("0" => "Normal", "1" => "Unicode");
 $config['send_type'] = array("0" => "SMS", "1" => "CronJob");

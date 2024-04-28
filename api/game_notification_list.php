@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
 
     if (isset($_POST['id'])) {
         $Id = sanitizeInput($_POST['id']);
-        $userData = getNotificationDetailsByID($id);
-        if ($userData) {            
+        $notificationdata = getNotificationDetailsByID($id);
+        if ($notificationdata) {            
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => 'notification data  retrieved successfully',
+                'data' => $notificationdata
             );
 
             header('Content-Type: application/json');
@@ -32,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $result = getNotification_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'message' => 'All notification data  retrieved successfully',
+            'data' => $result,
         );
         header('Content-Type: application/json');
         http_response_code(200);

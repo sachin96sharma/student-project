@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
 
     if (isset($_POST['game_id'])) {
         $Id = sanitizeInput($_POST['game_id']);
-        $userData = gameReportbyId($Id);
-        if ($userData) {            
+        $gamereport = gameReportbyId($Id);
+        if ($gamereport) {            
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => ' user game report  retrieved successfully',
+                'data' => $gamereport
             );
 
             header('Content-Type: application/json');
@@ -32,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $result = gameReport_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'message' => 'All user game report  retrieved successfully',
+            'data' => $result,
         );
         header('Content-Type: application/json');
         http_response_code(200);

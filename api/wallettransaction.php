@@ -9,13 +9,14 @@ function sanitizeInput($data)
 // pr($_POST);die;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
 
-    if (isset($_POST['id'])) {
-        $Id = sanitizeInput($_POST['id']);
-        $userData = getwallet_byID($Id);
-        if ($userData) {            
+    if (isset($_POST['user_id'])) {
+        $Id = sanitizeInput($_POST['user_id']);
+        $walletdata = getwallet_byID($Id);
+        if ($walletdata) {            
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => 'User wallet  retrieved successfully',
+                'data' => $walletdata
             );
 
             header('Content-Type: application/json');
@@ -28,17 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
             echo json_encode(['status' => false, 'error' => 'user wallet Id  not found']);
             exit;
         }
-    } else {
-        $result = getwallet_list();
-        $response = array(
-            'status' => true,
-            'users' => $result,
-        );
-        header('Content-Type: application/json');
-        http_response_code(200);
-        echo json_encode($response);
-        exit;
-    }
+    } 
+    // not show all list in wallet
+    // else {
+    //     $result = getwallet_list();
+    //     $response = array(
+    //         'status' => true,
+    //         'message' => 'All user wallet  retrieved successfully',
+    //         'data' => $result,
+    //     );
+    //     header('Content-Type: application/json');
+    //     http_response_code(200);
+    //     echo json_encode($response);
+    //     exit;
+    // }
 } else {
     // Invalid request method or key
     http_response_code(400);

@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
 
     if (isset($_POST['id'])) {
         $Id = sanitizeInput($_POST['id']);
-        $userData = getwallet_history_byID($Id);
-        if ($userData) {            
+        $Transactiondata = getwallet_history_byID($Id);
+        if ($Transactiondata) {            
             $response = array(
                 'status' => true,
-                'user' => $userData
+                'message' => 'user transaction data  retrieved successfully',
+                'data' => $Transactiondata
             );
 
             header('Content-Type: application/json');
@@ -32,7 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         $result = getwallet_history_list();
         $response = array(
             'status' => true,
-            'users' => $result,
+            'message' => ' All user transaction data  retrieved successfully',
+            'data' => $result,
         );
         header('Content-Type: application/json');
         http_response_code(200);

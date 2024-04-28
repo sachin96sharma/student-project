@@ -453,7 +453,7 @@ function getallGame_list()
 }
 function getGameby_Id($id)
 {
-    $sql = "SELECT name,image,id FROM " . tbl_games . " WHERE id = '" . $id . "' LIMIT 1";
+    $sql = "SELECT name,image,id FROM " . tbl_games . " WHERE game_id = '" . $id . "' LIMIT 1";
     $array = FetchRow($sql);
     return $array;
 }

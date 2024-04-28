@@ -9,8 +9,8 @@ function sanitizeInput($data)
 // pr($_POST);die;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
 
-    if (isset($_POST['id'])) {
-        $Id = sanitizeInput($_POST['id']);
+    if (isset($_POST['game_id'])) {
+        $Id = sanitizeInput($_POST['game_id']);
         $gameDetails = getGameby_Id($Id);
         if ($gameDetails) {
             $gameImage = ($gameDetails['image']) ? SITEPATH . $config['image'] . $gameDetails['image'] : SITEPATH . NOIMAGE;

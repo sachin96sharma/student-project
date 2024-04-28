@@ -447,7 +447,7 @@ function getcity_list()
 }
 function getallGame_list()
 {
-    $sql = "SELECT name,id, image FROM " . tbl_games . " ORDER BY id DESC";
+    $sql = "SELECT name,game_id, image FROM " . tbl_games . " ORDER BY game_id DESC";
     $array = FetchAll($sql);
     return $array;
 }

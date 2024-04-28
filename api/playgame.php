@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         if (!$userExist) {
             http_response_code(400);
             header('Content-Type: application/json');
-            echo json_encode(['status' => false, 'message' => 'Invalid User ID']);
+            echo json_encode(['status' => false, 'message' => 'Invalid Game ID']);
             exit;
         }
     }
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
     }
 
     // Respond with success message
-    $response = ['status' => true, 'message' => $gameId ? 'Your Profile has been updated successfully.' : 'Your registration procedure has been completed. Our team will connect with you shortly.'];
+    $response = ['status' => true, 'message' => $gameId ? 'Your game has been updated successfully.' : 'Your game procedure has been completed.'];
     http_response_code($gameId ? 200 : 201);
     header('Content-Type: application/json');
     echo json_encode($response);

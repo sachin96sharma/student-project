@@ -6,7 +6,7 @@ $url_return = "../Customer/";
 switch ($action) {
 	case "save":
 		$field = array();
-
+		// pr($_POST);die;
 		$field['user_email'] = get_safe_post('user_email');
 		$field['user_phone'] = get_safe_post('user_phone');
 		$field['user_pass'] = encryptIt(get_safe_post('confirm_password'));
@@ -26,6 +26,7 @@ switch ($action) {
 		$field['ref_id'] = get_safe_post('ref_id');
 		$field['ref_by'] = get_safe_post('ref_by');
 		$field['balance'] = get_safe_post('balance');
+		$field['dob'] = date('Y-m-d',strtotime(get_safe_post('dob')));
 
 		$field['accountholder_name'] = get_safe_post('accountholder_name');
 		$field['bank_accountno'] = get_safe_post('bank_accountno');

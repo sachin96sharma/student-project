@@ -62,19 +62,19 @@ if ($per['categories']['add'] == 0) {
                                 <div class="col-sm-4">
                                 <div class="form-group">
                                   <label>User Name</label>
-                               <select id="user_id" name="user_id" class="form-control" onfocusout="getState(this.value)">
+                                  <select id="user_id" name="user_id" class="form-control" onfocusout="getState(this.value)">
                                   <?php 
 	                                $rows_list = getcustomer_byList();
 	                                $i="active";	
 	                                  foreach($rows_list as $rows) {	 ?>
                                      <option value="<?php echo $rows['user_id']; ?>" <?php if ($row['username']== $rows['user_id']){ echo "selected";} ?> ><?php echo $rows['first_name']; ?></option>
-                                <?php }?>
+                                   <?php }?>
                                    </select>
                                    <label class="label-brdr" style="width: 0%;"></label>
                                     </div>
                                     <?php
-			  $res = getcustomer_byID($row['username']);
-			  ?>
+			                               $res = getcustomer_byID($row['username']);
+			                                  ?>
                                       <input type="hidden" name="user_id" value="<?php echo $row['username']; ?>">
 
                                 </div>

@@ -11,7 +11,7 @@ function sanitizeInput($data)
 function handleFileUpload($fileKey, $columnName, $userId)
 {
     global $link, $config;
-    
+
     if (!empty($_FILES[$fileKey]["name"]) && $_FILES[$fileKey]["error"] == 0) {
         $getUserByID = getcustomer_byID($userId);
         $customerNameWithoutSpacesLowercase = strtolower(str_replace(' ', '', $getUserByID['first_name']));
@@ -68,16 +68,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
     $ref_id = sanitizeInput($_POST['ref_id']);
     $ref_by = sanitizeInput($_POST['ref_by']);
     $balance = sanitizeInput($_POST['balance']);
+    $dob = sanitizeInput($dob);
+    $dob = date('Y-m-d', strtotime($_POST['dob']));
     // $user_logo = sanitizeInput($_FILES['image']['name']);
 
-    // Validate required fields
-    $requiredFields = [
-        'first_name',
-        'user_email',
-        'user_phone',
-        'user_pass',
-        
-    ];
+    if ($userId) {
+        // Validate required fields
+        $requiredFields = [
+            'first_name',
+            'user_email',
+            'user_phone',
+
+        ];
+    } else {
+        // Validate required fields
+        $requiredFields = [
+            'first_name',
+            'user_email',
+            'user_phone',
+            'user_pass'
+        ];
+    }
+
+    // pr($requiredFields);die;
 
     $emptyFields = [];
     foreach ($requiredFields as $fieldName) {
@@ -104,13 +117,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
 
     // Prepare and execute SQL query
     if ($userId) {
-        $sql = "UPDATE customer SET first_name=?, user_phone=?, user_country=?, user_state=?, user_district=?, user_address=?, fund_wallet=?, bank_accountno=?, bank_ifsccode=?, bank_name=?, accountholder_name=?, ref_id=?, ref_by=?, balance=? WHERE user_id=?";
+        $sql = "UPDATE customer SET first_name=?, user_phone=?, user_country=?, user_state=?, user_district=?, user_address=?, fund_wallet=?, bank_accountno=?, bank_ifsccode=?, bank_name=?, accountholder_name=?, ref_id=?, ref_by=?,dob=?, balance=? WHERE user_id=?";
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, 'ssississssssssi', $first_name, $phone, $user_country, $user_state, $user_district, $user_address, $fund_wallet, $bank_accountno, $bank_ifsccode, $bank_name, $accountholder_name, $ref_id, $ref_by, $balance, $userId);
+        mysqli_stmt_bind_param($stmt, 'ssiiissssssssssi', $first_name, $phone, $user_country, $user_state, $user_district, $user_address, $fund_wallet, $bank_accountno, $bank_ifsccode, $bank_name, $accountholder_name, $ref_id, $ref_by,$dob, $balance, $userId);
     } else {
-        $sql = "INSERT INTO customer (first_name,user_email, user_phone,user_country, user_state,user_district, user_address,user_pincode,user_pass, fund_wallet, bank_accountno, bank_ifsccode, bank_name, accountholder_name, ref_id, ref_by, balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO customer (first_name,user_email, user_phone,user_country, user_state,user_district, user_address,user_pincode,user_pass, fund_wallet, bank_accountno, bank_ifsccode, bank_name, accountholder_name, ref_id, ref_by,dob, balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $sql);
-        mysqli_stmt_bind_param($stmt, 'ssssisssssssssssi', $first_name, $email, $phone, $user_country, $user_state, $user_district, $user_address, $user_pincode, $hashed_password, $fund_wallet, $bank_accountno, $bank_ifsccode, $bank_name, $accountholder_name, $ref_id, $ref_by, $balance);
+        mysqli_stmt_bind_param($stmt, 'ssssissssssssssssi', $first_name, $email, $phone, $user_country, $user_state, $user_district, $user_address, $user_pincode, $hashed_password, $fund_wallet, $bank_accountno, $bank_ifsccode, $bank_name, $accountholder_name, $ref_id, $ref_by,$dob, $balance);
     }
 
 

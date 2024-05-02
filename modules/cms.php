@@ -22,6 +22,10 @@ define("tbl_notifications", "notifications");
 define("tbl_game_report", "game_report");
 define("tbl_wallet", "wallet");
 define("tbl_city", "city");
+define("tbl_refer", "refer");
+define("tbl_cities", "cities");
+define("tbl_country", "country");
+
 
 
 
@@ -38,6 +42,12 @@ function getwallet_list()
     $array = FetchAll($sql);
     return $array;
 }
+function getrefer_list()
+{
+    $sql = "select * from " . tbl_refer . "   order by  id desc ";
+    $array = FetchAll($sql);
+    return $array;
+}
 function getwallet_byID($Id)
 {
     $sql = "select user_id,user_amount,payment_status,created_at from " . tbl_wallet . " where user_id='" . $Id . "' ";
@@ -45,7 +55,7 @@ function getwallet_byID($Id)
     return $array;
 }
 function getWalletUserbyID($id_or_user_id = null)
-{    
+{
     if (is_numeric($id_or_user_id)) {
         $sql = "SELECT * FROM " . tbl_wallet . " WHERE id = '" . $id_or_user_id . "' LIMIT 1";
     } else {
@@ -171,6 +181,7 @@ function getcustomer_byList_dah()
 function getcustomer_byList()
 {
     $sql = "select * from " . tbl_customer . " order by  user_id desc ";
+    // pr($sql);
     $array = FetchAll($sql);
     return $array;
 }
@@ -319,7 +330,7 @@ function getGameDetailsByID($id)
 {
     $sql = "select * from " . tbl_games . " where game_id='" . $id . "' limit 0,1 ";
 
-// pr($sql);die;
+    // pr($sql);die;
     $array = FetchRow($sql);
     return $array;
 }
@@ -342,6 +353,13 @@ function getWalletDetailsById($id)
 function  getNotificationDetailsByID($id)
 {
     $sql = "select * from " . tbl_notifications . " where id='" . $id . "' limit 0,1 ";
+
+    $array = FetchRow($sql);
+    return $array;
+}
+function  getreferDetailsByID($id)
+{
+    $sql = "select * from " . tbl_refer . " where id='" . $id . "' limit 0,1 ";
 
     $array = FetchRow($sql);
     return $array;
@@ -431,9 +449,10 @@ function getnews_list_by_dash()
     return $array;
 }
 
+
 function getcity_bystateID($id)
 {
-    $sql = "SELECT * FROM city WHERE stateID = '".$id."' ";
+    $sql = "SELECT * FROM city WHERE state_id = '" . $id . "' ";
     // pr($sql);die;
     $array = FetchAll($sql);
     return $array;
@@ -445,6 +464,16 @@ function getcity_list()
     $array = FetchAll($sql);
     return $array;
 }
+function get_city_list_by_state($state_id)
+{
+    // Assuming tbl_city and tbl_state are your table names
+    $sql = "SELECT * FROM tbl_city WHERE stateID = $state_id ORDER BY city_id ASC";
+
+    $array = FetchAll($sql); // Assuming FetchAll is a custom function to fetch all rows
+
+    return $array;
+}
+
 function getallGame_list()
 {
     $sql = "SELECT name,game_id, image FROM " . tbl_games . " ORDER BY game_id DESC";
@@ -458,29 +487,87 @@ function getGameby_Id($id)
     $array = FetchRow($sql);
     return $array;
 }
-function getUserWallet_list(){
+function getUserWallet_list()
+{
     $sql = "SELECT user_id, user_amount FROM " . tbl_wallet . " ORDER BY id DESC ";
     $array = FetchAll($sql);
     return $array;
 }
-function getUserWallet_Id($id){ 
+// function getUserWallet_Id($id){ 
+//     $sql = "SELECT user_id, user_amount FROM " . tbl_wallet . " WHERE user_id = '" . $id . "' ORDER BY id DESC LIMIT 1";
+//     $array = FetchAll($sql);
+//     return $array;        
+// }
+function getUserWallet_Id($id)
+{
+
     $sql = "SELECT user_id, user_amount FROM " . tbl_wallet . " WHERE user_id = '" . $id . "' ORDER BY id DESC LIMIT 1";
-    $array = FetchAll($sql);
-    return $array;        
+    $array = FetchOne($sql);
+    if (!empty($array)) {
+        $user_id = $array['user_id'];
+        $customer_sql = "SELECT first_name FROM customer WHERE user_id = '" . $user_id . "'";
+        $username = FetchOne($customer_sql);
+        $array['username'] = $username['first_name'];
+        // pr($array);die;
+    }
+    return $array;
 }
 
 function getState_byID($id)
 {
-    $sql = "select * from " . tbl_state . " where stateID='" . $id . "' limit 0,1 ";
+    $sql = "select * from " . tbl_state . " where id='" . $id . "' ";
     $array = FetchRow($sql);
+    // pr($array);die;
     return $array;
 }
-function getState_list()
+
+
+function getCountry_list()
 {
-    $sql = "select * from " . tbl_state . " order by  stateID asc ";
+    $sql = "SELECT * FROM " . tbl_country . " WHERE status = 'Y' ORDER BY  id asc ";
     $array = FetchAll($sql);
     return $array;
 }
+
+function getCountry_byID($id = null)
+{
+    $sql = "SELECT * FROM " . tbl_country . " WHERE id='" . $id . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
+}
+
+
+function getState_list($countryId = null)
+{
+
+    if ($countryId) {
+        $sql = "SELECT * FROM " . tbl_state . " WHERE country_id =" . $countryId .  " ORDER BY id asc";
+    } else {
+        $sql = "SELECT * FROM " . tbl_state . " ORDER BY  id asc limit 100";
+    }
+
+    $array = FetchAll($sql);
+    return $array;
+}
+
+function getCityList($stateId = null)
+{
+    if ($stateId) {
+        $sql = "SELECT * FROM " . tbl_cities . " WHERE state_id ='" . $stateId . "' ORDER BY id asc";
+    } else {
+        $sql = "SELECT * FROM " . tbl_cities . " ORDER BY id asc limit 10";
+    }
+    $array = FetchAll($sql);
+    return $array;
+}
+
+function getCity_byID($id = null)
+{
+    $sql = "SELECT * FROM " . tbl_cities . " WHERE id='" . $id . "' limit 0,1 ";
+    $array = FetchRow($sql);
+    return $array;
+}
+
 
 function getCategory_byList_byuser($id)
 {
@@ -492,7 +579,7 @@ function getCategory_byList_byuser($id)
 
 function getCategory_byID($Id)
 {
-    
+
     $sql = "select * from " . tbl_categories . " where cat_id='" . $Id . "' limit 0,1 ";
     $array = FetchRow($sql);
     return $array;
@@ -609,7 +696,7 @@ function getReport_bylist($gameId = null)
     }
     // pr($sql);die;
     $games = FetchAll($sql);
-    
+
     // Return the fetched results
     return $games;
 }

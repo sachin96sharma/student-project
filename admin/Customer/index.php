@@ -2,6 +2,7 @@
 include("../../system_config.php");
 include_once("../common/head.php");
 $rows_list = getcustomer_byList();
+// pr($rows_list);die;
 if ($per['user']['view'] == 0) { ?>
   <script>
     window.location.href = "../dashboard.php";
@@ -43,7 +44,7 @@ if ($per['user']['view'] == 0) { ?>
         <h1 align="center" style="color: #337ab7;"><?php echo $_SESSION['message'];
                                                     unset($_SESSION['message']); ?></h1>
         <div class="button-wrapper ">
-          <button onclick="location.href='<?php echo SITEPATH; ?>admin/Customer/add-new-customer.php'">
+          <button onclick="location.href='<?php echo SITEPATH; ?>admin/Customer/add_new_customer.php'">
             Add Customer
           </button>
         </div>
@@ -54,14 +55,11 @@ if ($per['user']['view'] == 0) { ?>
                 <td><strong>Sr no</strong></td>
                 <td><strong>Name</strong></td>
                 <td><strong> Profile Image</strong></td>
-
                 <td><strong>Email</strong></td>
+                <td><strong>DOB</strong></td>
                 <td><strong>Number</strong></td>
                 <td><strong>Bank Name</strong></td>
                 <td><strong>Address</strong></td>
-                <!-- <td><strong>State</strong></td>
-              <td><strong>City</strong></td>
-              <td><strong>Pincode</strong></td> -->
                 <td><strong>Account No.</strong></td>
                 <td><strong>Referral Id</strong></td>
                 <td><strong>Customer Balance</strong></td>
@@ -75,8 +73,9 @@ if ($per['user']['view'] == 0) { ?>
               <?php
               $i = 1;
               foreach ($rows_list as $rows) {
-                $ress = getdistrict_byID($rows['user_district']);
+                $rescity = getcity_byID($rows['user_district']);
                 $res = getState_byID($rows['user_state']);
+                
               ?>
                 <tr>
                   <td><?php echo $i; ?></td>
@@ -92,9 +91,22 @@ if ($per['user']['view'] == 0) { ?>
                   </td>
 
                   <td><?php echo $rows['user_email']; ?></td>
+                  <td>
+                    <?php
+                    $dob = isset($rows['dob']) ? $rows['dob'] : ''; 
+
+                    if (!empty($dob)) {
+                      $formattedDate = date('Y-m-d', strtotime($dob));
+                      echo htmlspecialchars($formattedDate); 
+                    } else {
+                      echo 'N/A'; 
+                    }
+                    ?>
+                  </td>
+
                   <td><?php echo $rows['user_phone']; ?></td>
                   <td><?php echo $rows['bank_name']; ?></td>
-                  <td><?php echo $rows['user_address'] . ', ' . $rows['user_district'] . ', ' . $res['stateName'] . ', ' . $rows['user_pincode']; ?></td>
+                  <td><?php echo $rows['user_address'] . ', ' . $rescity['name'] . ', ' . $res['name'] . ', ' . $rows['user_pincode']; ?></td>
 
                   <!-- <td><?php echo $rows['user_address'] ?></td>
               <td><?php echo $res['stateName']; ?></td>

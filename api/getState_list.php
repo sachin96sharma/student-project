@@ -10,8 +10,8 @@ function sanitizeInput($data)
 // pr($_POST);die;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key'] === 'qwertyupasdfghjklzxcvbnm') {
 
-    if (isset($_POST['stateID'])) {
-        $Id = sanitizeInput($_POST['stateID']);
+    if (isset($_POST['id'])) {
+        $Id = sanitizeInput($_POST['id']);
         // $Id = sanitizeInput(date('Y-m-d H:i:s',strtotime($_POST['stateID']));
         $Statedata = getState_byID($Id);
         if ($Statedata) {            

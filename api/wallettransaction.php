@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['key']) && $_POST['key
         } else {
             http_response_code(404);
             header('Content-Type: application/json');
-            echo json_encode(['status' => false, 'error' => 'user wallet Id  not found']);
+            echo json_encode(['status' => false, 'message' => 'There is not transation in this user']);
             exit;
         }
     } 

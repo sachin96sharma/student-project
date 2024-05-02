@@ -52,7 +52,9 @@ if ($r['user_type'] == "1") {
                                         <td><strong>Game Name</strong></td>
                                         <td><strong>User Name</strong></td>
                                         <td><strong>Bet Amount</strong></td>
-                                        <td><strong>Game biding</strong></td>
+                                        <td><strong>Choose Number</strong></td>
+                                        <td><strong>Game Biding</strong></td>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,6 +70,7 @@ if ($r['user_type'] == "1") {
                                             <td><?php echo htmlspecialchars($res['name']); ?></td>
                                             <td><?php echo htmlspecialchars($user['first_name']); ?></td>
                                             <td><?php echo htmlspecialchars($game['bet_amount']); ?></td>
+                                            <td><?php echo htmlspecialchars($game['choose_number']); ?></td>
                                             <td><?php echo htmlspecialchars($game['created_at']); ?></td>
                                         </tr>
                                     <?php

@@ -37,8 +37,7 @@ function save_command($tblName, $field, $primary_key = "", $primary_value = null
             $field_Value[] = $key . " =  '" . addslashes(trim($value)) . "'";
         }
         $query = "UPDATE " . $tblName . " set " . implode(',', $field_Value) . "   where " . $primary_key . " ='" . $primary_value."'";
-        //echo $query;die;
-        
+        // echo $query;die;      
 
          
         if (mysqli_query($link, $query)) {

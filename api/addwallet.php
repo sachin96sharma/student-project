@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['key']) && $_POST['key'
     // Validate required fields
     $requiredFields = [
         'user_id',
-        'user_amount',
+        // 'user_amount',
              
     ];
     $emptyFields = [];

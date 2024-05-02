@@ -5,7 +5,7 @@ ini_set('display_errors', 0);
 // $dbhost = "localhost";
 // $dbuser = "root"; // Assuming you're using root as the username
 // $dbpass = ""; // Assuming you're not setting a password for the root user
-// $db = "abc";
+// $db = "student_db";
 
 $dbhost = "localhost";
 $dbuser = "student_db"; // Assuming you're using root as the username
@@ -41,6 +41,14 @@ function FetchAll($sql) {
 }
 
 function FetchRow($sql) {
+    $link = connectme();
+    $rowObj = mysqli_query($link, $sql);
+    $result = mysqli_fetch_assoc($rowObj);
+    mysqli_free_result($rowObj);
+    return $result;
+}
+
+function FetchOne($sql) {
     $link = connectme();
     $rowObj = mysqli_query($link, $sql);
     $result = mysqli_fetch_assoc($rowObj);

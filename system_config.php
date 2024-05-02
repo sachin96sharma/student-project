@@ -132,5 +132,5 @@ $config['paymentyype'] = array("0" => "Wallet", "1" => "Online Payment");
 $config['paymentstatus'] = array("0" => "Panding", "1" => "Done");
 $config['orderstatus'] = array("0" => "Panding", "1" => "Completed", "2" => "Cancel");
 $config['customer_type'] = array("0" => "Organization", "1" => "Individual");
-$config['country'] = array("0" => "India", "1" => "Other Country");
+$config['country'] = array("101" => "India", "1" => "Other Country");
 $config['type2'] = array("0"=>"Offer", "1"=>"Winning", "2"=>"Games");
